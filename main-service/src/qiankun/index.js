@@ -1,0 +1,95 @@
+import {
+  registerMicroApps,
+  runAfterFirstMounted,
+  setDefaultMountApp,
+  start
+} from "qiankun";
+import store from '../store/index'
+import { instance } from "../main";
+import 'nprogress/nprogress.css'
+
+/**
+ * Step1 初始化应用（可选）
+ */
+
+function loader(loading) {
+  if (instance && instance.$children) {
+    // instance.$children[0] 是App.vue，此时直接改动App.vue的isLoading
+    instance.$children[0].isLoading = loading;
+  }
+}
+
+/**
+ * Step2 注册子应用
+ */
+
+const microApps = [
+  {
+    name: 'sub-vue2',
+    developer: 'vue2.x',
+    entry: '//localhost:3001',
+    activeRule: '/sub-vue2',
+  },
+  {
+    name: 'sub-vite2-vue3',
+    developer: 'vite2-vue3',
+    entry: '//localhost:3002',
+    activeRule: '/sub-vite2-vue3'
+  },
+  {
+    name: 'sub-vite2-react',
+    developer: 'vite2-react',
+    entry: '//localhost:3003',
+    activeRule: '/sub-vite2-react'
+  },
+]
+
+const apps = microApps.map(item => {
+  return {
+    ...item,
+    loader, // 给子应用配置加上loader方法
+    container: '#subapp-container', // 子应用挂载的div
+    props: {
+      developer: item.developer, // 下发基础路由
+      routerBase: item.activeRule, // 下发基础路由
+      getGlobalState: store.getGlobalState // 下发getGlobalState方法
+    }
+  }
+})
+
+registerMicroApps(apps, {
+  beforeLoad: app => {
+    console.log('[LifeCycle] before load %c%s', 'color: green;', app.name)
+  },
+  beforeMount: [
+    app => {
+      console.log('[LifeCycle] before mount %c%s', 'color: green;', app.name)
+    }
+  ],
+  afterMount: [
+    app => {
+      console.log('[LifeCycle] after mount %c%s', 'color: green;', app.name)
+    }
+  ],
+  afterUnmount: [
+    app => {
+      console.log('[LifeCycle] after unmount %c%s', 'color: green;', app.name)
+    }
+  ]
+})
+
+/**
+ * Step3 设置默认进入的子应用
+ */
+setDefaultMountApp('/sub-vue2')
+
+/**
+ * Step4 启动应用
+ */
+start();
+
+runAfterFirstMounted(() => {
+  console.log("[MainApp] first app mounted");
+});
+
+export default apps
