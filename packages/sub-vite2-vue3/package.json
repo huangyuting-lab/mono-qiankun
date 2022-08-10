@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mono-qiankun/utils": "workspace:^0.0.0",
     "button-vite2-vue3": "workspace:^0.0.0",
     "vue": "^3.2.25",
     "vue-router": "4"

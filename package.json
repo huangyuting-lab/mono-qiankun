@@ -26,12 +26,14 @@
     "start:sub-vite2-vue3": "pnpm --filter sub-vite2-vue3 dev",
     "start:sub-vite2-react": "pnpm --filter sub-vite2-react dev",
     "start:button": "pnpm --filter button-vite2-vue3 dev",
+    "start:utils": "pnpm --filter @mono-qiankun/utils dev",
     "build": "npm-run-all --parallel build:*",
     "build:main": "pnpm --filter main-service build",
     "build:sub-vue2": "pnpm --filter sub-vue2 build",
     "build:sub-vite2-vue3": "pnpm --filter sub-vite2-vue3 build",
     "build:sub-vite2-react": "pnpm --filter sub-vite2-react build",
-    "build:button": "pnpm --filter button-vite2-vue3 build"
+    "build:button": "pnpm --filter button-vite2-vue3 build",
+    "build:utils": "pnpm --filter @mono-qiankun/utils build"
   },
   "__npminstall_done": false
 }

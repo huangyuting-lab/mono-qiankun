@@ -74,11 +74,13 @@ importers:
 
   packages/sub-vite2-vue3:
     specifiers:
+      '@mono-qiankun/utils': workspace:^0.0.0
       '@vitejs/plugin-vue': ^2.2.0
       button-vite2-vue3: workspace:^0.0.0
       vue: ^3.2.25
       vue-router: '4'
     dependencies:
+      '@mono-qiankun/utils': link:../../utils
       button-vite2-vue3: link:../../components/button-vite2-vue3
       vue: 3.2.37
       vue-router: 4.1.3_vue@3.2.37
